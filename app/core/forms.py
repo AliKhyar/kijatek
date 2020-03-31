@@ -31,4 +31,25 @@ class LogInForm(forms.Form):
     })
     def clean(self):
         cleaned_data = super().clean()
-        #Do Stuff
+        
+
+class CommentForm(forms.Form):
+    comment = forms.CharField(max_length = 150, required = True,
+    widget=forms.Textarea)
+    """widget=forms.TextInput(
+        attrs = {
+            'class':'form-control',
+            'type':'text',
+            'id':'commentArea',
+            'rows':'3',
+            'placeholder':'Add comment',
+            'required':"required",
+       }
+   ),
+       error_messages = {
+           'required' : "This field is required",
+           'invalid' : "This field is invalid",
+   })"""
+
+    def clean(self):
+        cleaned_data = super().clean()
