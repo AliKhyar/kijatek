@@ -7,8 +7,10 @@ from .models import *
 
 # Create your views here.
 
-def home_page(request):
-    pass
+def index(request):
+    return render(request = request,
+                    template_name = "core/index.html",
+                    context={})
 
 def forum(request):
     questions_replies = dict()
