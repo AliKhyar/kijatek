@@ -11,7 +11,7 @@ def index(request):
     return render(request = request,
                     template_name = "core/index.html",
                     context={})
-
+"""
 def forum(request):
     questions_replies = dict()
     for q in Question.objects.all():
@@ -53,4 +53,4 @@ def login_page(request):
     form = LogInForm()
     return render(request = request,
                     template_name = "core/login.html",
-                    context={"form":form})
+                    context={"form":form})"""
