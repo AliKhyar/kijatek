@@ -8,9 +8,17 @@ from .models import *
 # Create your views here.
 
 def index(request):
+    disciplines = Department.objects.distinct()
+    grads = Department.objects.distinct()
+    cities = City.objects.all()
+    context = {
+        "disciplines": disciplines,
+        "grads": grads,
+        "cities": cities
+    }
     return render(request = request,
                     template_name = "core/index.html",
-                    context={})
+                    context=context)
 """
 def forum(request):
     questions_replies = dict()

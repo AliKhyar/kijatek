@@ -1,5 +1,51 @@
 {% extends 'core/header.html' %}
 
 {% block content %}
+    <div class="container">
+        <div class="mr-auto">
 
+        </div>
+        <div class="row" id="row-choose">
+            <div class="col">
+                <select class="browser-default custom-select">
+                    <option selected>your level</option>
+                    <option value="-1">Bac-</option>
+                    <option value="0">Bac</option>
+                    <option value="2">Bac+2</option>
+                    <option value="3">Licence/Bachelor</option>
+                    <option value="4">Master</option>
+                    <option value="5">Phd</option>
+                    
+                  </select>
+            </div>
+            <div class="col">
+                <select class="browser-default custom-select">
+                    <option selected>want to continue in</option>
+                    {% for discipline in disciplines  %}
+                      <option value={{discipline}}>{{discipline}}</option>
+                    {% endfor %}
+                  </select>
+            </div>
+            <div class="col">
+                <select class="browser-default custom-select">
+                    <option selected>city</option>
+                    {% for city in cities %}
+                      <option value={{city.id}}>{{city.name}}</option>
+                    {% endfor %}
+                  </select>
+            </div>
+        </div>
+        <div class="row"><!-- Default unchecked disabled -->
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+              <label class="custom-control-label" for="defaultUncheckedDisabled2">Default unchecked disabled</label>
+            </div>
+            
+            <!-- Default checked disabled -->
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+              <label class="custom-control-label" for="defaultCheckedDisabled2">Default checked disabled</label>
+            </div>
+    </div>
+    
 {% endblock %}
