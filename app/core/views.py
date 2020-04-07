@@ -19,6 +19,11 @@ def index(request):
     return render(request = request,
                     template_name = "core/index.html",
                     context=context)
+
+def search_schools(request, bac_plus, discipline, city, establishment_type):
+    
+    pass
+
 """
 def forum(request):
     questions_replies = dict()

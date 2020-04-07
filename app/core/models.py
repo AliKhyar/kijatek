@@ -12,13 +12,19 @@ from django.contrib.auth.models import AbstractBaseUser,\
 
 class Region(models.Model):
     name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name    
 
 class City(models.Model):
-    name = models.CharField(max_length=100)
     region_id = models.ForeignKey(Region, default=0, verbose_name='Region', on_delete=models.SET_DEFAULT)
+    name = models.CharField(max_length=100)
 
     class Meta:
         verbose_name_plural = "Cities"
+
+    def __str__(self):
+        return self.name
 
 
 class EstablishmentStaff(User):
