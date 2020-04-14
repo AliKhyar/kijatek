@@ -12,7 +12,7 @@ from django.contrib.auth.models import AbstractBaseUser,\
 
 class Region(models.Model):
     name = models.CharField(max_length=100)
-    
+
     def __str__(self):
         return self.name    
 
@@ -38,6 +38,7 @@ class Establishment(models.Model):
     ('Semi', "Semi"),
     ]
     name = models.CharField('Name', max_length=250)
+    abreviated_name = models.CharField('Name', max_length=100)
     director_id = models.ForeignKey(EstablishmentStaff, default=0, verbose_name='Director', on_delete=models.SET_DEFAULT)
     city_id = models.ForeignKey(City, default=0, verbose_name='City', on_delete=models.SET_DEFAULT)
     establishment_type = models.CharField('Private or Public', max_length=10, default='Public', choices=TYPE_CHOICES)
@@ -46,6 +47,12 @@ class Establishment(models.Model):
     adress  = models.CharField( max_length=250)
     phone = models.IntegerField()
     website = models.CharField('Website', max_length=250)
+
+class Discipline(models.Model):
+    discipline = models.CharField(default=None,max_length=200)
+
+    def __str__(self):
+        return self.name
 
 
 
@@ -59,6 +66,9 @@ class Department(models.Model):
     description = models.CharField(max_length=250)
     students_number = models.IntegerField()
     acceptance_criteria = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 
 class Comment(models.Model):
     department_id = models.ForeignKey(Department, default=0, on_delete=models.SET_DEFAULT)
@@ -84,6 +94,8 @@ class Reply(models.Model):
 
     class Meta:
         ordering = ('created',)
+        verbose_name_plural = "Replies"
+    
 
     def __str__(self):
         return self.body
@@ -137,7 +149,8 @@ class Review(models.Model):
 
     def __str__(self):
         return self.body
-     
+
+
 """
 class UserManager(BaseUserManager):
     

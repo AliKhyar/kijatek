@@ -4,25 +4,64 @@ from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from .models import *
+from django.http import HttpResponse, HttpResponseRedirect, request
+from django.urls import reverse
+
 
 # Create your views here.
 
-def index(request):
-    disciplines = Department.objects.distinct()
-    grads = Department.objects.distinct()
+def home_page(request):
+    departments = Department.objects.distinct()
     cities = City.objects.all()
     context = {
-        "disciplines": disciplines,
-        "grads": grads,
+        "departments": departments,
         "cities": cities
     }
-    return render(request = request,
+    if request.method == 'POST':
+        bac_plus = request.POST['bac_plus']
+        department = request.POST['department']
+        city = request.POST['city']
+        return redirect(f'search_info:{bac_plus}+{department}+{city}') #redirect(search_info(request,bac_plus, department, city))  #, kwargs={'request':request,'bac_plus':bac_plus, 'department':department, 'city':city})
+
+
+
+    return render(request,
                     template_name = "core/index.html",
                     context=context)
 
-def search_schools(request, bac_plus, discipline, city, establishment_type):
+
+def search(request):
+    bac_plus = request.POST['bac_plus']
+    department = request.POST['department']
+    city = request.POST['city']
     
-    pass
+    return render(request,
+                    template_name = "core/test.html",
+                    context={})
+
+@csrf_exempt
+def search_info(request, bac_plus, department, city):
+    departments = Department.objects.filter(bac_plus=bac_plus)
+    
+    return render(request,
+                    template_name = "core/test2.html",
+                    context={})
+
+"""
+def search_info(request, bac_plus, department, city):
+    departments = Department.objects.filter(bac_plus=bac_plus, department=department, \
+        establishment_id__city_id=city)  #establishment_id__establishment_type__in=establishment_type
+    print(bac_plus, department, city)
+    return render(request,
+                    template_name = "core/khliha.html",
+                    context={})
+
+"""
+
+
+
+
+
 
 """
 def forum(request):

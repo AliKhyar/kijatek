@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import *
+from django.apps import apps
 # Register your models here.
 
-admin.site.register(Region)
-admin.site.register(City)
+myapp = apps.get_app_config('core')
+admin.site.register(myapp.get_models())
