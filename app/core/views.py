@@ -11,38 +11,34 @@ from django.urls import reverse
 # Create your views here.
 
 def home_page(request):
-    departments = Department.objects.distinct()
+    disciplines = Discipline.objects.all()
     cities = City.objects.all()
     context = {
-        "departments": departments,
+        "disciplines": disciplines,
         "cities": cities
     }
+
     if request.method == 'POST':
         bac_plus = request.POST['bac_plus']
-        department = request.POST['department']
+        discipline = request.POST['discipline']
         city = request.POST['city']
-        return redirect(f'search_info:{bac_plus}+{department}+{city}') #redirect(search_info(request,bac_plus, department, city))  #, kwargs={'request':request,'bac_plus':bac_plus, 'department':department, 'city':city})
-
-
+        return redirect(f'search_info/data={bac_plus}+{discipline}+{city}') #redirect(search_info(request,bac_plus, department, city))  #, kwargs={'request':request,'bac_plus':bac_plus, 'department':department, 'city':city})
 
     return render(request,
                     template_name = "core/index.html",
                     context=context)
 
 
-def search(request):
-    bac_plus = request.POST['bac_plus']
-    department = request.POST['department']
-    city = request.POST['city']
-    
-    return render(request,
-                    template_name = "core/test.html",
-                    context={})
+def search():
+    pass
 
 @csrf_exempt
-def search_info(request, bac_plus, department, city):
-    departments = Department.objects.filter(bac_plus=bac_plus)
-    
+def search_info(request, bac_plus, discipline, city):
+    departments = Department.objects.filter(establishment__city=city, bac_plus=bac_plus, discipline__name=discipline)   #(discipline=discipline, bac_plus=bac_plus, )
+    print(departments)
+    for d in departments:
+        print(d)
+
     return render(request,
                     template_name = "core/test2.html",
                     context={})

@@ -17,7 +17,7 @@ class Region(models.Model):
         return self.name    
 
 class City(models.Model):
-    region_id = models.ForeignKey(Region, default=0, verbose_name='Region', on_delete=models.SET_DEFAULT)
+    region = models.ForeignKey(Region, default=0, verbose_name='Region', on_delete=models.SET_DEFAULT)
     name = models.CharField(max_length=100)
 
     class Meta:
@@ -25,7 +25,6 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class EstablishmentStaff(User):
     role = models.CharField('Role', max_length=150)
@@ -38,9 +37,9 @@ class Establishment(models.Model):
     ('Semi', "Semi"),
     ]
     name = models.CharField('Name', max_length=250)
-    abreviated_name = models.CharField('Name', max_length=100)
-    director_id = models.ForeignKey(EstablishmentStaff, default=0, verbose_name='Director', on_delete=models.SET_DEFAULT)
-    city_id = models.ForeignKey(City, default=0, verbose_name='City', on_delete=models.SET_DEFAULT)
+    abreviated_name = models.CharField('Abreviated Name', max_length=100)
+    director = models.ForeignKey(EstablishmentStaff, default=0, verbose_name='Director', on_delete=models.SET_DEFAULT)
+    city = models.ForeignKey(City, default=0, verbose_name='City', on_delete=models.SET_DEFAULT)
     establishment_type = models.CharField('Private or Public', max_length=10, default='Public', choices=TYPE_CHOICES)
     fees = models.IntegerField('Fees', default=0)
     description = models.CharField('Description', max_length=250)
@@ -48,30 +47,37 @@ class Establishment(models.Model):
     phone = models.IntegerField()
     website = models.CharField('Website', max_length=250)
 
+    def __str__(self):
+        return self.abreviated_name
+
 class Discipline(models.Model):
-    discipline = models.CharField(default=None,max_length=200)
+    name = models.CharField(default=None,max_length=200)
 
     def __str__(self):
-        return self.name
-
-
+        return self.name 
 
 class Department(models.Model):
-    responsible_id =  models.ForeignKey(EstablishmentStaff, default=0, verbose_name='Responsible', on_delete=models.SET_DEFAULT)
-    establishment_id = models.ForeignKey(Establishment, default=0, verbose_name='establishment', on_delete=models.SET_DEFAULT)
+    GRAD_CHOICES = [
+    ('DUT', "DUT"),
+    ('Licence', "Licence"),
+    ('Master', "Master"),
+    ('Ingineering', "Ingineering"),
+    ]
+    responsible =  models.ForeignKey(EstablishmentStaff, default=0, verbose_name='Responsible', on_delete=models.SET_DEFAULT)
+    establishment = models.ForeignKey(Establishment, default=0, verbose_name='Establishment', on_delete=models.SET_DEFAULT)
+    discipline = models.ForeignKey(Discipline, default=0, verbose_name='Discipline', on_delete=models.SET_DEFAULT)
     name = models.CharField(max_length=200)
-    discipline = models.CharField(default=None,max_length=200)
-    grad = models.CharField(max_length=100)
-    bac_plus = models.IntegerField(default=0)
+    grad = models.CharField(max_length=100, choices=GRAD_CHOICES)
+    bac_plus = models.IntegerField(default=0, verbose_name='Now in Bac')
     description = models.CharField(max_length=250)
     students_number = models.IntegerField()
     acceptance_criteria = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name
+        return self.name + '\t'+ str(self.establishment)
 
 class Comment(models.Model):
-    department_id = models.ForeignKey(Department, default=0, on_delete=models.SET_DEFAULT)
+    department = models.ForeignKey(Department, default=0, on_delete=models.SET_DEFAULT)
     user = models.ForeignKey(User,default=0, on_delete=models.SET_DEFAULT)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
@@ -87,8 +93,8 @@ class Comment(models.Model):
         return self.body
 
 class Reply(models.Model):
-    comment_id = models.ForeignKey(Comment,default=0, on_delete=models.SET_DEFAULT)
-    user_id = models.ForeignKey(User,default=0, verbose_name="Forum", on_delete=models.SET_DEFAULT)
+    comment = models.ForeignKey(Comment,default=0, on_delete=models.SET_DEFAULT)
+    user = models.ForeignKey(User,default=0, verbose_name="Forum", on_delete=models.SET_DEFAULT)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
@@ -101,7 +107,7 @@ class Reply(models.Model):
         return self.body
 
 class Question(models.Model):
-    user_id = models.ForeignKey(User,default=0, on_delete=models.SET_DEFAULT)
+    user = models.ForeignKey(User,default=0, on_delete=models.SET_DEFAULT)
     body = models.TextField(max_length=250)
     about = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
@@ -117,8 +123,8 @@ class Question(models.Model):
         return self.body
 
 class Answer(models.Model):
-    user_id = models.ForeignKey(User,default=0, on_delete=models.SET_DEFAULT)
-    comment_id = models.ForeignKey(Comment,default=0, on_delete=models.SET_DEFAULT)
+    user = models.ForeignKey(User,default=0, on_delete=models.SET_DEFAULT)
+    comment = models.ForeignKey(Comment,default=0, on_delete=models.SET_DEFAULT)
     body = models.TextField(max_length=250)
     about = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
@@ -134,8 +140,8 @@ class Answer(models.Model):
         return self.body
 
 class Review(models.Model):
-    user_id = models.ForeignKey(User,default=0, on_delete=models.SET_DEFAULT)
-    department_id = models.ForeignKey(Department,default=0, on_delete=models.SET_DEFAULT)
+    user = models.ForeignKey(User,default=0, on_delete=models.SET_DEFAULT)
+    department = models.ForeignKey(Department,default=0, on_delete=models.SET_DEFAULT)
     review = models.IntegerField()
     feedback = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)

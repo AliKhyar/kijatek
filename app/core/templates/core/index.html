@@ -19,10 +19,10 @@
                     </select>
               </div>
               <div class="col">
-                  <select name="department" class="browser-default custom-select">
+                  <select name="discipline" class="browser-default custom-select">
                       <option selected>want to continue in</option>
-                      {% for department in departments  %}
-                        <option value={{department.id}}>{{department.discipline}}</option>
+                      {% for discipline in disciplines  %}
+                        <option value={{discipline.id}}>{{discipline.name}}</option>
                       {% endfor %}
                     </select>
               </div>
