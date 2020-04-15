@@ -32,9 +32,9 @@ class EstablishmentStaff(User):
 
 class Establishment(models.Model):
     TYPE_CHOICES = [
-    ('Private', "Private"),
-    ('Public', "Public"),
-    ('Semi', "Semi"),
+        ('Private', "Private"),
+        ('Public', "Public"),
+        ('Semi', "Semi"),
     ]
     name = models.CharField('Name', max_length=250)
     abreviated_name = models.CharField('Abreviated Name', max_length=100)
@@ -58,10 +58,10 @@ class Discipline(models.Model):
 
 class Department(models.Model):
     GRAD_CHOICES = [
-    ('DUT', "DUT"),
-    ('Licence', "Licence"),
-    ('Master', "Master"),
-    ('Ingineering', "Ingineering"),
+        ('DUT', "DUT"),
+        ('Licence', "Licence"),
+        ('Master', "Master"),
+        ('Ingineering', "Ingineering"),
     ]
     responsible =  models.ForeignKey(EstablishmentStaff, default=0, verbose_name='Responsible', on_delete=models.SET_DEFAULT)
     establishment = models.ForeignKey(Establishment, default=0, verbose_name='Establishment', on_delete=models.SET_DEFAULT)

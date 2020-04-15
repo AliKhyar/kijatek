@@ -1,0 +1,37 @@
+{% extends 'core/header.html' %}
+{% block content %}
+<div class="container mt-5">
+    
+    <div class='h3 m-2'>You are in bac
+        {% if info.bac_plus >= 0 %}
+         {{ info.bac_plus }}
+        {% else %}
+         +  {{ info.bac_plus }}
+        {% endif %}
+        want to study
+        {{info.discipline.name}}
+        in 
+        {{info.city.name}}
+    </div>
+
+    <div class="row">
+    {% if departments %}
+        {% for d in departments %}
+        <div class="card border-primary m-2" style="width: 22rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{d.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{d.establishment}}</h6>
+                <p class="card-text">{{d.description}}</p>
+                <a href="#" class="card-link">See department</a>
+                <a href="#" class="card-link">See school</a>
+            </div>
+        </div>
+        {% endfor %}
+    {%else%}
+        <div class="h5 text-danger mt-5"> Sorry we don't have any info about your query yet</div>
+    {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,47 +1,48 @@
 {% extends 'core/header.html' %}
 
 {% block content %}
-    <div class="container">
-      <div class="row-cols-12" id="index-content">
-        <form method="post" role="form">
-          {% csrf_token %}
-          <!-- ####### first row for leve/want to continue in/ city########## -->
-          <div class="row" id="row-choose">
-              <div class="col">
-                  <select name="bac_plus" class="browser-default custom-select">
-                      <option selected>your level</option>
-                      <option value="-1">Bac-</option>
-                      <option value="0">Bac</option>
-                      <option value="2">Bac+2</option>
-                      <option value="3">Licence/Bachelor</option>
-                      <option value="4">Master</option>
-                      <option value="5">Phd</option>
-                    </select>
-              </div>
-              <div class="col">
-                  <select name="discipline" class="browser-default custom-select">
-                      <option selected>want to continue in</option>
-                      {% for discipline in disciplines  %}
-                        <option value={{discipline.id}}>{{discipline.name}}</option>
-                      {% endfor %}
-                    </select>
-              </div>
-              <div class="col">
-                  <select name="city" class="browser-default custom-select">
-                      <option selected>city</option>
-                      {% for city in cities %}
-                        <option value={{city.id}}>{{city.name}}</option>
-                      {% endfor %}
-                    </select>
-              </div>
-              
+
+<div class="container">
+  <div class="row-cols-12" id="index-content">
+    <form method="post" role="form">
+      {% csrf_token %}
+      <!-- ####### first row for leve/want to continue in/ city########## -->
+      <div class="row" id="row-choose">
+          <div class="col">
+              <select name="bac_plus" class="browser-default custom-select">
+                  <option selected>your level</option>
+                  <option value="-1">Bac-</option>
+                  <option value="0">Bac</option>
+                  <option value="2">Bac+2</option>
+                  <option value="3">Licence/Bachelor</option>
+                  <option value="4">Master</option>
+                  <option value="5">Phd</option>
+                </select>
           </div>
-          <!-- ####### end first row ########## -->
+          <div class="col">
+              <select name="discipline" class="browser-default custom-select">
+                  <option selected>want to continue in</option>
+                  {% for discipline in disciplines  %}
+                    <option value={{discipline.id}}>{{discipline.name}}</option>
+                  {% endfor %}
+                </select>
+          </div>
+          <div class="col">
+              <select name="city" class="browser-default custom-select">
+                  <option selected>city</option>
+                  {% for city in cities %}
+                    <option value={{city.id}}>{{city.name}}</option>
+                  {% endfor %}
+                </select>
+          </div>
           
-          <input class="btn btn-primary btn-lg btn-block mt-4" type = "submit" value="Submit">
-          
-        </form>
-      </div>  
-    </div>
+      </div>
+      <!-- ####### end first row ########## -->
+      
+      <input class="btn btn-primary btn-lg btn-block mt-4" type = "submit" value="Submit">
+      
+    </form>
+  </div>  
+</div>
     
 {% endblock %}

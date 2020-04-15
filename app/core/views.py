@@ -34,14 +34,20 @@ def search():
 
 @csrf_exempt
 def search_info(request, bac_plus, discipline, city):
-    departments = Department.objects.filter(establishment__city=city, bac_plus=bac_plus, discipline__name=discipline)   #(discipline=discipline, bac_plus=bac_plus, )
-    print(departments)
-    for d in departments:
-        print(d)
+    departments = Department.objects.filter(establishment__city=city, bac_plus=bac_plus )#, discipline__name=discipline)   #(discipline=discipline, bac_plus=bac_plus, )
+    info = {
+        'bac_plus':bac_plus, 
+        'discipline':Discipline.objects.filter(id=discipline)[0], 
+        'city':City.objects.filter(id=city)[0]
+        }
+    context = {
+        'departments': departments,
+        'info':info
+    }
 
     return render(request,
-                    template_name = "core/test2.html",
-                    context={})
+                    template_name = "core/search_info.html",
+                    context=context)
 
 """
 def search_info(request, bac_plus, department, city):
