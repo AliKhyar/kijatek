@@ -1,0 +1,59 @@
+{% extends 'core/header.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-1">
+        <!--left margin -->
+    </div>
+
+    <div class="col-8">
+        <div>
+            <p class=" h4 mb-2">{{establishment.name}}</p>
+            <p class=" h5">is a {{establishment.establishment_type|lower}} school,
+                also known as {{establishment.abreviated_name}}
+                <br>
+                directed now by {{establishment.director}}
+                <br>
+                <!--map icon-->
+                <i style='font-size:24px' class='fas'>&#xf3c5;</i> 
+                <!--end map icon-->
+                {{establishment.adress}}, {{establishment.city}}
+                <br>
+                phone contact: {{establishment.phone}}
+                <br>
+                website: {{establishment.website}}
+            </p>
+        </div>
+        
+        <div id="establishmentDescription" class="p lead">
+            <div class="h4 font-weight-bold mt-3"> description:</div>
+            <br>
+            {{establishment.description}}
+            {% lorem 2 p %} {#hadi ghi paragraph mafiha nfe3#}
+
+        </div>
+
+        <div id="establishmentDescription" class="p mt-5">
+            <div class="h4 font-weight-bold mt-3"> Departments:</div>
+            <br>
+            <ul class="list-group">
+                {% for d in departments  %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{d.name}}
+                    <a href="{% url 'core:search_department' establishment.id d.id %}">
+                    <span class="badge badge-primary badge-pill">See department</span>
+                    </a>
+                </li>
+                {% endfor %}
+
+        </div>
+        
+
+
+    </div>
+    <div class="col-3">
+        <!--this is for adds-->
+    </div>
+
+{% endblock %}

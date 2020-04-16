@@ -11,5 +11,4 @@ urlpatterns = [
     path("establishments/data=<establishment_id>", views.search_establishment, name="search_establishment"),
     path("establishments/departments/data=<establishment_id>+<department_id>", views.search_department, name="search_department"),
     path("test", views.test, name="test"),
-    
 ]

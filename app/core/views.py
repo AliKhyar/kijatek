@@ -29,8 +29,6 @@ def home_page(request):
                     context=context)
 
 
-def search():
-    pass
 
 @csrf_exempt
 def search_info(request, bac_plus, discipline, city):
@@ -50,13 +48,16 @@ def search_info(request, bac_plus, discipline, city):
 
 
 def search_establishment(request, establishment_id):
-    department = Department.objects.filter(id=establishment_id)
+    establishment = Establishment.objects.filter(id=establishment_id)[0]
+    departments = Department.objects.filter(establishment=establishment)
     context = {
-        'department' : department
+        'establishment' : establishment,
+        'departments':departments
     }
     return render(request,
                     template_name = "core/establishment.html",
                     context=context)
+                
 
 def search_department(request, establishment_id, department_id):
     department = Department.objects.filter(id=department_id)
