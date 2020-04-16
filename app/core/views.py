@@ -22,10 +22,10 @@ def home_page(request):
         bac_plus = request.POST['bac_plus']
         discipline = request.POST['discipline']
         city = request.POST['city']
-        return redirect(f'search_info/data={bac_plus}+{discipline}+{city}') #redirect(search_info(request,bac_plus, department, city))  #, kwargs={'request':request,'bac_plus':bac_plus, 'department':department, 'city':city})
+        return redirect(f'search/data={bac_plus}+{discipline}+{city}') #redirect(search_info(request,bac_plus, department, city))  #, kwargs={'request':request,'bac_plus':bac_plus, 'department':department, 'city':city})
 
     return render(request,
-                    template_name = "core/index.html",
+                    template_name = "core/home.html",
                     context=context)
 
 
@@ -44,21 +44,39 @@ def search_info(request, bac_plus, discipline, city):
         'departments': departments,
         'info':info
     }
-
     return render(request,
                     template_name = "core/search_info.html",
                     context=context)
 
+
+def search_establishment(request, establishment_id):
+    department = Department.objects.filter(id=establishment_id)
+    context = {
+        'department' : department
+    }
+    return render(request,
+                    template_name = "core/establishment.html",
+                    context=context)
+
+def search_department(request, establishment_id, department_id):
+    department = Department.objects.filter(id=department_id)
+    context = {
+        'department' : department
+    }
+    return render(request,
+                    template_name = "core/department.html",
+                    context=context)
+
+
+
 def test(request):
+    department = Department.objects.all()[0]
+    context = {
+        'department' : department
+    }
     return render(request,
                     template_name = "core/test.html",
-                    context={})
-
-
-
-
-
-
+                    context=context)
 
 """
 def forum(request):

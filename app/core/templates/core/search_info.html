@@ -27,8 +27,8 @@
                 <h5 class="card-title">{{d.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{d.establishment}}</h6>
                 <p class="card-text">{{d.description}}</p>
-                <a href="#" class="card-link">See department</a>
-                <a href="#" class="card-link">See school</a>
+                <a href="{% url 'core:search_department' d.establishment.id d.id %}" class="card-link">See department</a>
+                <a href="{% url 'core:search_establishment' d.id %}" class="card-link">See establishment</a>
             </div>
         </div>
         {% endfor %}
