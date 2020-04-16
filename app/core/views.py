@@ -49,16 +49,11 @@ def search_info(request, bac_plus, discipline, city):
                     template_name = "core/search_info.html",
                     context=context)
 
-"""
-def search_info(request, bac_plus, department, city):
-    departments = Department.objects.filter(bac_plus=bac_plus, department=department, \
-        establishment_id__city_id=city)  #establishment_id__establishment_type__in=establishment_type
-    print(bac_plus, department, city)
+def test(request):
     return render(request,
-                    template_name = "core/khliha.html",
+                    template_name = "core/test.html",
                     context={})
 
-"""
 
 
 

@@ -7,6 +7,6 @@ app_name = 'core'  # here for namespacing of urls.
 
 urlpatterns = [
     path("", views.home_page, name="home"),
-    path("search", views.search, name="search"),
+    path("test", views.test, name="test"),
     path("search_info/data=<bac_plus>+<discipline>+<city>", views.search_info, name="search_info"),
 ]

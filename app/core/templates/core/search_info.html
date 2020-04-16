@@ -2,7 +2,10 @@
 {% block content %}
 <div class="container mt-5">
     
-    <div class='h3 m-2'>You are in bac
+    <div class="h4 mb-4">
+    <div class="alert alert-secondary text-center mb-4">
+    
+        You are in bac
         {% if info.bac_plus >= 0 %}
          {{ info.bac_plus }}
         {% else %}
@@ -13,9 +16,11 @@
         in 
         {{info.city.name}}
     </div>
-
-    <div class="row">
+    </div>
+    
     {% if departments %}
+    <div class="h6 font-weight-bold mb-4">Here is what we found for you:</div>
+    <div class="row">
         {% for d in departments %}
         <div class="card border-primary m-2" style="width: 22rem;">
             <div class="card-body">
@@ -27,10 +32,11 @@
             </div>
         </div>
         {% endfor %}
+    </div>
     {%else%}
         <div class="h5 text-danger mt-5"> Sorry we don't have any info about your query yet</div>
     {% endif %}
-    </div>
+    
 
 </div>
 
