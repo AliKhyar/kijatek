@@ -4,7 +4,33 @@
 <div class="container">
     <div class="row">
         <div class="col-9">
-            {% lorem 5 p %}
+            <div>
+            <ul>
+                <li>{{department.name}} is a department of {{department.establishment.name|lower}} AKA {{department.establishment.abreviated_name}} that offers a trining in {{department.discipline.name}}.
+                </li>
+                <li>required level of studies: bac {%if department.bac_plus < 0 %}
+                    {{department.bac_plus}}
+                    {% else %}
+                    + {{department.bac_plus}}
+                    {% endif %}
+                </li>
+
+                <li>Ending this training will give you the grad: {{department.grad}}
+                </li>
+            </ul>
+            </div>
+
+            <div class="p mt-5">
+                <div class="h5 font-weight-bold">
+                    More about:
+                </div>
+                <div class="p lead">
+                    {{department.description}}
+                    {% lorem 5 p %}
+                </div>
+                
+            </div>
+                       
         </div>
         <div class="col-3 bg-dark">
 

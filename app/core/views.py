@@ -71,9 +71,14 @@ def search_department(request, establishment_id, department_id):
 
 
 def test(request):
-    department = Department.objects.all()[0]
+    department = Department.objects.filter(name='Department 1')[0]
+    comments = Comment.objects.filter(department=department)
+    comments_replies = dict()
+    for c in comments:
+        comments_replies[c] = Reply.objects.filter(comment=c.id)
     context = {
-        'department' : department
+        'department' : department,
+        'comments_replies': comments_replies
     }
     return render(request,
                     template_name = "core/test.html",

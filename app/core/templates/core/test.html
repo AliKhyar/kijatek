@@ -1,22 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-    
-    <div class="h5">
-      {{department.name}}
-      <br> <br>
-      {{department.establishment.city}}
-      <br>
-    </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-</html>
+{% extends 'core/header.html' %}
+{%load static%}
+
+{% block css %}
+<!--
+
+<link rel="stylesheet" href="{% static 'core/css/test.css'%}">
+-->
+{% endblock %}
+
+{% block title %}
+<title>Home</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h4>comments:</h4>
+  <div class="row">
+
+    {% for comment, replies in comments_replies.items%}
+    <div class="col-11 offset-1 border border-dark mb-2">
+      <div> <b>{{comment.user}}</b> said:</div>
+      <div class="row col-12 offset-1">
+        <div class="p text-justify">{{comment.body}}</div>
+      </div>
+      {% for reply in replies%}
+      <div class="col-10 offset-2 border border-dark mb-1">
+        <div> <b>{{reply.user}}</b> said:</div>
+        <div class="p text-justify">{{reply.body}}</div>
+        
+      </div>
+      {% endfor %}
+      
+    </div>
+    {% endfor %}
+    <!--submit comment area-->
+    <div class="row-cols-1 col offset-2">
+      <form method="POST">
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Add your comment below:</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+          <button type="button" class="btn btn-outline-primary float-right">Submit</button>
+        </div>
+      </form>
+    </div>  
+    <!--end submit comment area-->
+  </div>    
+</div>
+
+{% endblock %}
+
+{% block js %}
+<!--
+<link rel="stylesheet" href="{% static 'core/js/test.js'%}">
+-->
+{% endblock %}
