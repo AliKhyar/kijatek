@@ -1,8 +1,17 @@
+
 {% extends 'core/header.html' %}
+{%load static%}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/home.css'%}">
+{% endblock %}
+{% block title %}
+<title>Home</title>
+{% endblock %}
 
 {% block content %}
 
-<div class="container">
+
+<div id="search-area" class="container">
   <div class="row-cols-12" id="index-content">
     <form method="post" role="form">
       {% csrf_token %}

@@ -60,7 +60,7 @@ def search_establishment(request, establishment_id):
                 
 
 def search_department(request, establishment_id, department_id):
-    department = Department.objects.filter(id=department_id)
+    department = Department.objects.filter(id=department_id, establishment=establishment_id)[0]
     context = {
         'department' : department
     }

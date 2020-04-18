@@ -7,9 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'core/css/bootstrap.css'%}" rel="stylesheet" id="bootstrap-css">
     <!--<link rel="stylesheet" href="{% static 'core/css/index.css'%}">-->
+
+    <!--css only added for a pecific template-->
+    {% block css %}
+    {% endblock %}
+    <!--###############################-->
+
     <link rel="stylesheet" href="{% static 'core/css/header.css'%}">
     <script src="{% static 'core/js/social-media-fonts.js'%}"></script>
-    <title>Home</title>
+
+    <!--title a pecific template-->
+    {% block title %}
+    {% endblock %}
+    <!--########################-->
 </head>
 
 <body>
@@ -52,11 +62,11 @@
 
 
     </div>
-    
+
     {% block content %}
     {% endblock %}
 
-    <div class="container-fluid mt-5">
+    <div id="footer-area" class="container-fluid mt-5">
 
     <!-- Footer -->
     <section id="footer">

@@ -1,13 +1,15 @@
 {% extends 'core/header.html' %}
 
+
+{% block title %}
+<title>{{establishment.abreviated_name}}</title>
+{% endblock %}
+
 {% block content %}
+<div class="container">
+    <div class="row">
 
-<div class="row">
-    <div class="col-1">
-        <!--left margin -->
-    </div>
-
-    <div class="col-8">
+    <div class="col-9">
         <div>
             <p class=" h4 mb-2">{{establishment.name}}</p>
             <p class=" h5">is a {{establishment.establishment_type|lower}} school,
@@ -52,8 +54,11 @@
 
 
     </div>
-    <div class="col-3">
+    <div class="col-3 bg-dark">
         <!--this is for adds-->
+        
     </div>
+    </div>
+</div>
 
 {% endblock %}

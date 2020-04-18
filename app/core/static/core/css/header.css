@@ -112,3 +112,7 @@ section .section-title {
     margin-bottom: 10px;
 }
 }
+
+#footer-area {
+    margin: 15% 0% 0% 0%;
+}
