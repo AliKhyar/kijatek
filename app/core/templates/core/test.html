@@ -15,13 +15,14 @@
 
 {% block content %}
 <div class="container">
-  <div class="row">
+  <div class="row mb-2">
     <!--submit comment area-->
     <div class="col offset-2">
       <form method="POST">
         <div class="form-group">
+          
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Your reply here"></textarea>
-          <button type="button" class="btn btn-outline-primary float-right">Add reply</button>
+          <button type="button" class="btn btn-outline-primary float-right">Add comment</button>
         </div>
       </form>
     </div>  
@@ -31,15 +32,17 @@
 
     {% for comment, replies in comments_replies.items%}
     <div class="col-11 offset-1 border border-dark mb-2">
-      <div> <b>{{comment.user}}</b> said:</div>
-      <div class="row col offset-1">
+      <div> 
+        <b>{{comment.user}}</b> said:
+      </div>
+      <div class="row col mb-3 offset-1">
         <div class="p text-justify">{{comment.body}}</div>
       </div>
       
       {% for reply in replies%}
-      <div class="col-10 offset-1 border border-dark mb-1">
+      <div class="col-10  offset-1 border border-dark mb-1">
         <div> <b>{{reply.user}}</b> said:</div>
-        <div class="p text-justify">{{reply.body}}</div>
+        <div class="row-12 col-10 offset-1">{{reply.body}}</div>
         
       </div>
       {% endfor %}
