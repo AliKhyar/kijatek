@@ -1,9 +1,15 @@
 {% extends 'core/header.html' %}
-
+{% load static%}
+{% block css%}
+<link rel="stylesheet" href="{% static 'core/css/comments.css'%}">
+{% endblock %}
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-9">
+    <div class="row-12">
+        <div class="col-2">
+
+        </div>
+        <div class="col">
             <div>
             <ul>
                 <li>{{department.name}} is a department of {{department.establishment.name|lower}} AKA {{department.establishment.abreviated_name}} that offers a trining in {{department.discipline.name}}.
@@ -36,6 +42,62 @@
 
         </div>
     </div>
-</div>
+    <div id="code-snippet">
+        <div class="row">
+            <div class="col-12">
+            <div class="blog-comment">
+                <hr/>
+                <!--for comment reply-->
+                {%for comment, replies in comments_replies.items%}
+                <ul class="comments">
+                    <li class="clearfix">
+                    <img src="" class="avatar" alt="">
+                    <div class="post-comments">
+                        <p class="meta">date hna <a href="#">useraname</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+                        <p>
+                            {{comment.body|safe}}
+                        </p>
+                    </div>
+                    <!--for replies-->
+                    {% for reply in replies%}
+                        <ul class="comments">
+                            <li class="clearfix">
+                                <img src="" class="avatar" alt="">
+                                <div class="post-comments">
+                                    <p class="meta">Dec 12, 2014 <a href="#">JohnDoe</a> says : <i class="pull-right"></a></i></p>
+                                    <p>
+                                        {{reply.body|safe}}
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                    <!--for replies-->
+                    </li>
+                </ul>
+                {% endfor %}
+                <!--for comment reply-->         
+            </div>
+        </div>
+            
+        </div>
+        <!--row of comment-->
+        <div class="row">
+            <div class="col-7 offset-3">
+                <form method="POST" role="form">
+                    {% csrf_token %} 
+                    <div class="form-group" id='main'>
+                        <label for="exampleFormControlTextarea1">Add comment</label>
+                        {{comment_form.comment}}
+                    
+                    
+                        <button type="submit" class="btn btn-outline-success">Click to add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--end of row of comment-->
+        </div>
+    </div>
 
 {% endblock %}

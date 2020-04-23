@@ -6,10 +6,13 @@ from django.contrib import messages
 from .models import *
 from django.http import HttpResponse, HttpResponseRedirect, request
 from django.urls import reverse
+import datetime
 
 
 # Create your views here.
 
+## in context: disciplines and cities => for home.html
+#  redirect to search info with bac_plus discipline city
 def home_page(request):
     disciplines = Discipline.objects.all()
     cities = City.objects.all()
@@ -19,6 +22,7 @@ def home_page(request):
     }
 
     if request.method == 'POST':
+        #extract data to pass it to url
         bac_plus = request.POST['bac_plus']
         discipline = request.POST['discipline']
         city = request.POST['city']
@@ -31,8 +35,11 @@ def home_page(request):
 
 
 @csrf_exempt
+## called by home_page view
 def search_info(request, bac_plus, discipline, city):
+    ## get all departments where conditions are satisfied
     departments = Department.objects.filter(establishment__city=city, bac_plus=bac_plus )#, discipline__name=discipline)   #(discipline=discipline, bac_plus=bac_plus, )
+    ## info to display in top of search_info.html 
     info = {
         'bac_plus':bac_plus, 
         'discipline':Discipline.objects.filter(id=discipline)[0], 
@@ -47,6 +54,7 @@ def search_info(request, bac_plus, discipline, city):
                     context=context)
 
 
+## return desired establishment info with departments
 def search_establishment(request, establishment_id):
     establishment = Establishment.objects.filter(id=establishment_id)[0]
     departments = Department.objects.filter(establishment=establishment)
@@ -58,18 +66,38 @@ def search_establishment(request, establishment_id):
                     template_name = "core/establishment.html",
                     context=context)
                 
+## return desired department info with comments
 
 def search_department(request, establishment_id, department_id):
     department = Department.objects.filter(id=department_id, establishment=establishment_id)[0]
+    comments_replies = dict()
+    comments = Comment.objects.filter(department=department.id)
+    for c in comments:
+        comments_replies[c] = Reply.objects.filter(comment=c.id)
     context = {
-        'department' : department
+        'department' : department,
+        'comments_replies':comments_replies
     }
+    if request.method == 'POST':
+        add_comment(request, department)
+    
+    context['comment_form']=CommentForm()
     return render(request,
                     template_name = "core/department.html",
                     context=context)
 
 
+def add_comment(request, department):
+    form = CommentForm(request.POST)
+    ## test always passed
+    # not true though!
+    if True:
+        comment=form.data['comment']
+        new_comment = Comment(department=department, user=request.user, body=comment, created=datetime.datetime.now() )
+        new_comment.save()
+        return redirect(f"establishments/departments/data={department.establishment.id}+{department.id}")
 
+## view for testing code in test.html and test/ url
 def test(request):
     department = Department.objects.filter(name='Department 1')[0]
     comments = Comment.objects.filter(department=department)
