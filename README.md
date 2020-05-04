@@ -11,8 +11,8 @@ comments/feedback. Also, there will be toxic comments detector done by deep lear
 dataset. For the first release of the project, there will not be support for French and Darija/Arabic.
 
 #Technologies to use:
-> Python (interactive visualization library: Bokeh)
-> Docker
-> Django Framework
-> Bootstrap
+- Python (interactive visualization library: Bokeh)
+- Docker
+- Django Framework
+- Bootstrap
 
