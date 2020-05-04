@@ -1,0 +1,36 @@
+{% extends 'core/header.html' %}
+
+
+{% block title %}
+<title>Unknown</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    
+    <div class="h4 mb-4">
+       <!-- empty div-->
+    </div>
+    
+    {% if establishments %}
+    <div class="h6 font-weight-bold mb-4">Here is available establishments:</div>
+    <div class="row">
+        {% for e in establishments %}
+        <div class="card border-primary m-2" style="width: 22rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{e.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{e.establishment}}</h6>
+                <p class="card-text">{{e.description}}</p>
+                <a href="{% url 'core:all_establishments'%}" class="card-link">See establishment</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {%else%}
+        <div class="h5 text-danger mt-5"> Sorry we don't have any info about your query yet</div>
+    {% endif %}
+    
+
+</div>
+
+{% endblock %}

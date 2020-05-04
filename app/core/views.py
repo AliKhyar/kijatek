@@ -64,7 +64,7 @@ def search_establishment(request, establishment_id):
     context = {
         'establishment': establishment,
         'departments': departments,
-        'script': bokeh_graph.script, 
+        'script': bokeh_graph.script,
         'div': bokeh_graph.div
     }
     return render(request,
@@ -94,6 +94,26 @@ def search_department(request, establishment_id, department_id):
                   context=context)
 
 
+def all_establishments(request):
+    establishments = Establishment.objects.all()
+    context = {
+        "establishments": establishments,
+    }
+    
+    return render(request, 
+    "core/establishments.html", 
+    context=context,)
+
+def all_departments(request):
+    departments = Department.objects.all()
+    context = {
+        "departments": departments,
+        "for_all":True,
+    }
+    return render(request, 
+    "core/departments.html", 
+    context=context,)
+
 def add_comment(request, department):
     form = CommentForm(request.POST)
     # test always passed
@@ -111,9 +131,9 @@ def add_comment(request, department):
 def test(request):
 
     context = {
-               'script': bokeh_graph.script, 
-               'div': bokeh_graph.div
-               }
+        'script': bokeh_graph.script,
+        'div': bokeh_graph.div
+    }
     return render(request,
                   template_name="core/test.html",
                   context=context)
