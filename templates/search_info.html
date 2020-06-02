@@ -1,29 +1,27 @@
-{% extends 'core/header.html' %}
+{% extends 'header.html' %}
 
 
 {% block title %}
-<title>Unknown</title>
+<title>Search</title>
 {% endblock %}
 
 {% block content %}
 <div class="container mt-5">
     
     <div class="h4 mb-4">
-    {%if not for_all%}
-        <div class="alert alert-secondary text-center mb-4">
-        
-            You are in bac
-            {% if info.bac_plus >= 0 %}
-            {{ info.bac_plus }}
-            {% else %}
-            +  {{ info.bac_plus }}
-            {% endif %}
-            want to study
-            {{info.discipline.name}}
-            in 
-            {{info.city.name}}
-        </div>
-    {%endif%}
+    <div class="alert alert-secondary text-center mb-4">
+    
+        You are in bac
+        {% if info.bac_plus >= 0 %}
+         {{ info.bac_plus }}
+        {% else %}
+         +  {{ info.bac_plus }}
+        {% endif %}
+        want to study
+        {{info.discipline.name}}
+        in 
+        {{info.city.name}}
+    </div>
     </div>
     
     {% if departments %}

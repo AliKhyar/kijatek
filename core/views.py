@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import LogInForm, CommentForm
+#from .forms import LogInForm, CommentForm
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
@@ -31,7 +31,7 @@ def home_page(request):
         return redirect(f'search/data={bac_plus}+{discipline}+{city}')
 
     return render(request,
-                  template_name="core/home.html",
+                  template_name="home.html",
                   context=context)
 
 
@@ -53,7 +53,7 @@ def search_info(request, bac_plus, discipline, city):
         'info': info
     }
     return render(request,
-                  template_name="core/search_info.html",
+                  template_name="search_info.html",
                   context=context)
 
 
@@ -68,7 +68,7 @@ def search_establishment(request, establishment_id):
         'div': bokeh_graph.div
     }
     return render(request,
-                  template_name="core/establishment.html",
+                  template_name="establishment.html",
                   context=context)
 
 # return desired department info with comments
@@ -90,7 +90,7 @@ def search_department(request, establishment_id, department_id):
 
     context['comment_form'] = CommentForm()
     return render(request,
-                  template_name="core/department.html",
+                  template_name="department.html",
                   context=context)
 
 
@@ -101,7 +101,7 @@ def all_establishments(request):
     }
     
     return render(request, 
-    "core/establishments.html", 
+    "establishments.html", 
     context=context,)
 
 def all_departments(request):
@@ -111,7 +111,7 @@ def all_departments(request):
         "for_all":True,
     }
     return render(request, 
-    "core/departments.html", 
+    "departments.html", 
     context=context,)
 
 def add_comment(request, department):
@@ -135,7 +135,7 @@ def test(request):
         'div': bokeh_graph.div
     }
     return render(request,
-                  template_name="core/test.html",
+                  template_name="test.html",
                   context=context)
 
 
@@ -149,7 +149,7 @@ def forum(request)                                                :
         'questions_replies'                                       : questions_replies
         }
     return render(request                                         = request,
-                  template_name                                   = 'core/forum.html',
+                  template_name                                   = 'forum.html',
                   context                                         = context)
 
 def add_question(request, forum_id,exo)                           : 
@@ -180,5 +180,5 @@ def login_page(request)                                           :
             messages.error(request, "Invalid username or password.")
     form                                                          = LogInForm()
     return render(request                                         = request,
-                    template_name                                 = "core/login.html",
+                    template_name                                 = "login.html",
                     context                                       = {"form":form})"""
